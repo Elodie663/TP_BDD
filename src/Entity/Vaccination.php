@@ -20,6 +20,13 @@ class Vaccination
     #[ORM\Column(type: Types::DATE_MUTABLE, nullable: true)]
     private ?\DateTime $date_prochaine_vaccination = null;
 
+    #[ORM\ManyToOne(inversedBy: 'vaccinations')]
+    private ?CarnetSante $carnetDeSante = null;
+
+    #[ORM\ManyToOne(inversedBy: 'vaccinations')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?Vaccin $vaccin = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -45,6 +52,30 @@ class Vaccination
     public function setDateProchaineVaccination(?\DateTime $date_prochaine_vaccination): static
     {
         $this->date_prochaine_vaccination = $date_prochaine_vaccination;
+
+        return $this;
+    }
+
+    public function getCarnetDeSante(): ?CarnetSante
+    {
+        return $this->carnetDeSante;
+    }
+
+    public function setCarnetDeSante(?CarnetSante $carnetDeSante): static
+    {
+        $this->carnetDeSante = $carnetDeSante;
+
+        return $this;
+    }
+
+    public function getVaccin(): ?Vaccin
+    {
+        return $this->vaccin;
+    }
+
+    public function setVaccin(?Vaccin $vaccin): static
+    {
+        $this->vaccin = $vaccin;
 
         return $this;
     }
