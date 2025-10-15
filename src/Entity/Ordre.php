@@ -19,9 +19,9 @@ class Ordre
 
     #[ORM\OneToOne(inversedBy: 'ordre', cascade: ['persist', 'remove'])]
     #[ORM\JoinColumn(nullable: false)]
-    private ?Classe $Classe = null;
+    private ?Classe $classe = null;
 
-    #[ORM\OneToOne(mappedBy: 'Ordre', cascade: ['persist', 'remove'])]
+    #[ORM\OneToOne(mappedBy: 'ordre', cascade: ['persist', 'remove'])]
     private ?Famille $famille = null;
 
     public function getId(): ?int
@@ -37,19 +37,17 @@ class Ordre
     public function setNom(string $nom): static
     {
         $this->nom = $nom;
-
         return $this;
     }
 
     public function getClasse(): ?Classe
     {
-        return $this->Classe;
+        return $this->classe;
     }
 
-    public function setClasse(Classe $Classe): static
+    public function setClasse(Classe $classe): static
     {
-        $this->Classe = $Classe;
-
+        $this->classe = $classe;
         return $this;
     }
 
@@ -60,13 +58,10 @@ class Ordre
 
     public function setFamille(Famille $famille): static
     {
-        // set the owning side of the relation if necessary
         if ($famille->getOrdre() !== $this) {
             $famille->setOrdre($this);
         }
-
         $this->famille = $famille;
-
         return $this;
     }
 }

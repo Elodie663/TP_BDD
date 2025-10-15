@@ -15,15 +15,15 @@ class Contraction
     private ?int $id = null;
 
     #[ORM\Column(type: Types::DATE_MUTABLE)]
-    private ?\DateTime $date_contraction = null;
+    private ?\DateTime $dateContraction = null;
 
     #[ORM\ManyToOne(inversedBy: 'contractions')]
     #[ORM\JoinColumn(nullable: false)]
-    private ?CarnetSante $CarnetSante = null;
+    private ?CarnetSante $carnetSante = null;
 
     #[ORM\ManyToOne(inversedBy: 'contractions')]
     #[ORM\JoinColumn(nullable: false)]
-    private ?Maladie $Maladie = null;
+    private ?Maladie $maladie = null;
 
     public function getId(): ?int
     {
@@ -32,37 +32,34 @@ class Contraction
 
     public function getDateContraction(): ?\DateTime
     {
-        return $this->date_contraction;
+        return $this->dateContraction;
     }
 
-    public function setDateContraction(\DateTime $date_contraction): static
+    public function setDateContraction(\DateTime $dateContraction): static
     {
-        $this->date_contraction = $date_contraction;
-
+        $this->dateContraction = $dateContraction;
         return $this;
     }
 
     public function getCarnetSante(): ?CarnetSante
     {
-        return $this->CarnetSante;
+        return $this->carnetSante;
     }
 
-    public function setCarnetSante(?CarnetSante $CarnetSante): static
+    public function setCarnetSante(?CarnetSante $carnetSante): static
     {
-        $this->CarnetSante = $CarnetSante;
-
+        $this->carnetSante = $carnetSante;
         return $this;
     }
 
     public function getMaladie(): ?Maladie
     {
-        return $this->Maladie;
+        return $this->maladie;
     }
 
-    public function setMaladie(?Maladie $Maladie): static
+    public function setMaladie(?Maladie $maladie): static
     {
-        $this->Maladie = $Maladie;
-
+        $this->maladie = $maladie;
         return $this;
     }
 }
