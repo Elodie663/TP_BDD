@@ -7,6 +7,10 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use App\Entity\Animal;
+use App\Entity\CageEmploye;
+use App\Entity\Fonctionnalite;
+use App\Entity\Allee;
 
 #[ORM\Entity(repositoryClass: CageRepository::class)]
 class Cage
@@ -28,16 +32,12 @@ class Cage
     private ?Allee $allee = null;
 
     /**
-
      * @var Collection<int, CageEmploye>
      */
-    #[ORM\OneToMany(targetEntity: CageEmploye::class, mappedBy: 'Cage')]
+    #[ORM\OneToMany(targetEntity: CageEmploye::class, mappedBy: 'cage')]
     private Collection $cageEmployes;
 
-    public function __construct()
-    {
-        $this->cageEmployes = new ArrayCollection();
-
+    /**
      * @var Collection<int, Animal>
      */
     #[ORM\OneToMany(targetEntity: Animal::class, mappedBy: 'cage')]
@@ -45,10 +45,11 @@ class Cage
 
     public function __construct()
     {
+        $this->cageEmployes = new ArrayCollection();
         $this->animals = new ArrayCollection();
-
     }
 
+    // Getters & setters
 
     public function getId(): ?int
     {
@@ -63,7 +64,6 @@ class Cage
     public function setNumeroCage(string $numero_cage): static
     {
         $this->numero_cage = $numero_cage;
-
         return $this;
     }
 
@@ -75,7 +75,6 @@ class Cage
     public function setFonctionnalite(?Fonctionnalite $fonctionnalite): static
     {
         $this->fonctionnalite = $fonctionnalite;
-
         return $this;
     }
 
@@ -87,14 +86,10 @@ class Cage
     public function setAllee(?Allee $allee): static
     {
         $this->allee = $allee;
-
         return $this;
     }
 
-    /**
-
-     * @return Collection<int, CageEmploye>
-     */
+    // CageEmployes
     public function getCageEmployes(): Collection
     {
         return $this->cageEmployes;
@@ -105,9 +100,21 @@ class Cage
         if (!$this->cageEmployes->contains($cageEmploye)) {
             $this->cageEmployes->add($cageEmploye);
             $cageEmploye->setCage($this);
+        }
+        return $this;
+    }
 
-     * @return Collection<int, Animal>
-     */
+    public function removeCageEmploye(CageEmploye $cageEmploye): static
+    {
+        if ($this->cageEmployes->removeElement($cageEmploye)) {
+            if ($cageEmploye->getCage() === $this) {
+                $cageEmploye->setCage(null);
+            }
+        }
+        return $this;
+    }
+
+    // Animals
     public function getAnimals(): Collection
     {
         return $this->animals;
@@ -118,30 +125,17 @@ class Cage
         if (!$this->animals->contains($animal)) {
             $this->animals->add($animal);
             $animal->setCage($this);
-
         }
-
         return $this;
     }
-
-
-    public function removeCageEmploye(CageEmploye $cageEmploye): static
-    {
-        if ($this->cageEmployes->removeElement($cageEmploye)) {
-            // set the owning side to null (unless already changed)
-            if ($cageEmploye->getCage() === $this) {
-                $cageEmploye->setCage(null);
 
     public function removeAnimal(Animal $animal): static
     {
         if ($this->animals->removeElement($animal)) {
-            // set the owning side to null (unless already changed)
             if ($animal->getCage() === $this) {
                 $animal->setCage(null);
-
             }
         }
-
         return $this;
     }
 }

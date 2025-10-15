@@ -16,10 +16,10 @@ class VilleResidence
     private ?int $id = null;
 
     #[ORM\Column(length: 50)]
-    private ?string $nom_ville = null;
+    private ?string $nomVille = null;
 
     #[ORM\Column(length: 10)]
-    private ?string $code_postal = null;
+    private ?string $codePostal = null;
 
     #[ORM\Column(length: 50)]
     private ?string $pays = null;
@@ -27,7 +27,7 @@ class VilleResidence
     /**
      * @var Collection<int, Employe>
      */
-    #[ORM\OneToMany(targetEntity: Employe::class, mappedBy: 'VilleResidence')]
+    #[ORM\OneToMany(targetEntity: Employe::class, mappedBy: 'villeResidence')]
     private Collection $employes;
 
     public function __construct()
@@ -42,25 +42,23 @@ class VilleResidence
 
     public function getNomVille(): ?string
     {
-        return $this->nom_ville;
+        return $this->nomVille;
     }
 
-    public function setNomVille(string $nom_ville): static
+    public function setNomVille(string $nomVille): static
     {
-        $this->nom_ville = $nom_ville;
-
+        $this->nomVille = $nomVille;
         return $this;
     }
 
     public function getCodePostal(): ?string
     {
-        return $this->code_postal;
+        return $this->codePostal;
     }
 
-    public function setCodePostal(string $code_postal): static
+    public function setCodePostal(string $codePostal): static
     {
-        $this->code_postal = $code_postal;
-
+        $this->codePostal = $codePostal;
         return $this;
     }
 
@@ -72,7 +70,6 @@ class VilleResidence
     public function setPays(string $pays): static
     {
         $this->pays = $pays;
-
         return $this;
     }
 
@@ -97,7 +94,6 @@ class VilleResidence
     public function removeEmploye(Employe $employe): static
     {
         if ($this->employes->removeElement($employe)) {
-            // set the owning side to null (unless already changed)
             if ($employe->getVilleResidence() === $this) {
                 $employe->setVilleResidence(null);
             }

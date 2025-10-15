@@ -19,11 +19,11 @@ class CageEmploye
 
     #[ORM\ManyToOne(inversedBy: 'cageEmployes')]
     #[ORM\JoinColumn(nullable: false)]
-    private ?Cage $Cage = null;
+    private ?Cage $cage = null;
 
     #[ORM\ManyToOne(inversedBy: 'cageEmployes')]
     #[ORM\JoinColumn(nullable: false)]
-    private ?Employe $Employe = null;
+    private ?Employe $employe = null;
 
     public function getId(): ?int
     {
@@ -38,31 +38,28 @@ class CageEmploye
     public function setDateDebut(\DateTime $date_debut): static
     {
         $this->date_debut = $date_debut;
-
         return $this;
     }
 
     public function getCage(): ?Cage
     {
-        return $this->Cage;
+        return $this->cage;
     }
 
-    public function setCage(?Cage $Cage): static
+    public function setCage(?Cage $cage): static
     {
-        $this->Cage = $Cage;
-
+        $this->cage = $cage;
         return $this;
     }
 
     public function getEmploye(): ?Employe
     {
-        return $this->Employe;
+        return $this->employe;
     }
 
-    public function setEmploye(?Employe $Employe): static
+    public function setEmploye(?Employe $employe): static
     {
-        $this->Employe = $Employe;
-
+        $this->employe = $employe;
         return $this;
     }
 }
