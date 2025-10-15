@@ -21,7 +21,7 @@ class Allee
 
     #[ORM\ManyToOne(inversedBy: 'allees')]
     #[ORM\JoinColumn(nullable: false)]
-    private ?Employe $Employe = null;
+    private ?Employe $employe = null;
 
     /**
      * @var Collection<int, Cage>
@@ -55,13 +55,14 @@ class Allee
 
     public function getEmploye(): ?Employe
     {
-        return $this->Employe;
+        return $this->employe;
     }
 
-    public function setEmploye(?Employe $Employe): static
+    public function setEmploye(?Employe $employe): static
     {
-        $this->Employe = $Employe;
-
+        $this->Employe = $employe;
+        return $this;
+    }
     /**
      * @return Collection<int, Cage>
      */
@@ -93,3 +94,4 @@ class Allee
         return $this;
     }
 }
+
