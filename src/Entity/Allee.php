@@ -21,7 +21,19 @@ class Allee
 
     #[ORM\ManyToOne(inversedBy: 'allees')]
     #[ORM\JoinColumn(nullable: false)]
-    private ?Employe $Employe = null;
+    private ?Employe $employe = null;
+
+    /**
+     * @var Collection<int, Cage>
+     */
+    #[ORM\OneToMany(targetEntity: Cage::class, mappedBy: 'allee')]
+    private Collection $cages;
+
+    public function __construct()
+    {
+        $this->cages = new ArrayCollection();
+    }
+
 
     /**
      * @var Collection<int, Cage>
@@ -55,12 +67,41 @@ class Allee
 
     public function getEmploye(): ?Employe
     {
-        return $this->Employe;
+        return $this->employe;
     }
 
-    public function setEmploye(?Employe $Employe): static
+    public function setEmploye(?Employe $employe): static
     {
-        $this->Employe = $Employe;
+        $this->Employe = $employe;
+        return $this;
+    }
+    /**
+     * @return Collection<int, Cage>
+     */
+    public function getCages(): Collection
+    {
+        return $this->cages;
+    }
+
+    public function addCage(Cage $cage): static
+    {
+        if (!$this->cages->contains($cage)) {
+            $this->cages->add($cage);
+            $cage->setAllee($this);
+        }
+
+        return $this;
+    }
+
+    public function removeCage(Cage $cage): static
+    {
+        if ($this->cages->removeElement($cage)) {
+            // set the owning side to null (unless already changed)
+            if ($cage->getAllee() === $this) {
+                $cage->setAllee(null);
+            }
+        }
+
 
     /**
      * @return Collection<int, Cage>
