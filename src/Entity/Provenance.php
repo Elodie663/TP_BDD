@@ -23,6 +23,14 @@ class Provenance
     #[ORM\Column(type: Types::TEXT, nullable: true)]
     private ?string $motif_transfert = null;
 
+    #[ORM\ManyToOne(inversedBy: 'provenances')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?Animal $animal = null;
+
+    #[ORM\ManyToOne(inversedBy: 'provenances')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?Pays $pays = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -60,6 +68,30 @@ class Provenance
     public function setMotifTransfert(?string $motif_transfert): static
     {
         $this->motif_transfert = $motif_transfert;
+
+        return $this;
+    }
+
+    public function getAnimal(): ?Animal
+    {
+        return $this->animal;
+    }
+
+    public function setAnimal(?Animal $animal): static
+    {
+        $this->animal = $animal;
+
+        return $this;
+    }
+
+    public function getPays(): ?Pays
+    {
+        return $this->pays;
+    }
+
+    public function setPays(?Pays $pays): static
+    {
+        $this->pays = $pays;
 
         return $this;
     }
