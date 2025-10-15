@@ -29,15 +29,26 @@ class CarnetSante
     private Collection $vaccinations;
 
     /**
+
+     * @var Collection<int, Contraction>
+     */
+    #[ORM\OneToMany(targetEntity: Contraction::class, mappedBy: 'CarnetSante')]
+    private Collection $contractions;
+
      * @var Collection<int, Animal>
      */
     #[ORM\OneToMany(targetEntity: Animal::class, mappedBy: 'carnetDeSante')]
     private Collection $animals;
 
+
     public function __construct()
     {
         $this->vaccinations = new ArrayCollection();
+
+        $this->contractions = new ArrayCollection();
+
         $this->animals = new ArrayCollection();
+
     }
 
     public function getId(): ?int
@@ -100,6 +111,20 @@ class CarnetSante
     }
 
     /**
+
+     * @return Collection<int, Contraction>
+     */
+    public function getContractions(): Collection
+    {
+        return $this->contractions;
+    }
+
+    public function addContraction(Contraction $contraction): static
+    {
+        if (!$this->contractions->contains($contraction)) {
+            $this->contractions->add($contraction);
+            $contraction->setCarnetSante($this);
+
      * @return Collection<int, Animal>
      */
     public function getAnimals(): Collection
@@ -112,10 +137,19 @@ class CarnetSante
         if (!$this->animals->contains($animal)) {
             $this->animals->add($animal);
             $animal->setCarnetDeSante($this);
+
         }
 
         return $this;
     }
+
+
+    public function removeContraction(Contraction $contraction): static
+    {
+        if ($this->contractions->removeElement($contraction)) {
+            // set the owning side to null (unless already changed)
+            if ($contraction->getCarnetSante() === $this) {
+                $contraction->setCarnetSante(null);
 
     public function removeAnimal(Animal $animal): static
     {
@@ -123,6 +157,7 @@ class CarnetSante
             // set the owning side to null (unless already changed)
             if ($animal->getCarnetDeSante() === $this) {
                 $animal->setCarnetDeSante(null);
+
             }
         }
 

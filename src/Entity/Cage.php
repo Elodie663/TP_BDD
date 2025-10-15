@@ -28,6 +28,16 @@ class Cage
     private ?Allee $allee = null;
 
     /**
+
+     * @var Collection<int, CageEmploye>
+     */
+    #[ORM\OneToMany(targetEntity: CageEmploye::class, mappedBy: 'Cage')]
+    private Collection $cageEmployes;
+
+    public function __construct()
+    {
+        $this->cageEmployes = new ArrayCollection();
+
      * @var Collection<int, Animal>
      */
     #[ORM\OneToMany(targetEntity: Animal::class, mappedBy: 'cage')]
@@ -36,6 +46,7 @@ class Cage
     public function __construct()
     {
         $this->animals = new ArrayCollection();
+
     }
 
 
@@ -81,6 +92,20 @@ class Cage
     }
 
     /**
+
+     * @return Collection<int, CageEmploye>
+     */
+    public function getCageEmployes(): Collection
+    {
+        return $this->cageEmployes;
+    }
+
+    public function addCageEmploye(CageEmploye $cageEmploye): static
+    {
+        if (!$this->cageEmployes->contains($cageEmploye)) {
+            $this->cageEmployes->add($cageEmploye);
+            $cageEmploye->setCage($this);
+
      * @return Collection<int, Animal>
      */
     public function getAnimals(): Collection
@@ -93,10 +118,19 @@ class Cage
         if (!$this->animals->contains($animal)) {
             $this->animals->add($animal);
             $animal->setCage($this);
+
         }
 
         return $this;
     }
+
+
+    public function removeCageEmploye(CageEmploye $cageEmploye): static
+    {
+        if ($this->cageEmployes->removeElement($cageEmploye)) {
+            // set the owning side to null (unless already changed)
+            if ($cageEmploye->getCage() === $this) {
+                $cageEmploye->setCage(null);
 
     public function removeAnimal(Animal $animal): static
     {
@@ -104,6 +138,7 @@ class Cage
             // set the owning side to null (unless already changed)
             if ($animal->getCage() === $this) {
                 $animal->setCage(null);
+
             }
         }
 
