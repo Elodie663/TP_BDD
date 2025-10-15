@@ -3,8 +3,9 @@
 namespace App\Entity;
 
 use App\Repository\ClasseRepository;
+
 use Doctrine\DBAL\Types\Types;
-use Doctrine\ORM\Mapping as ORM;
+
 
 #[ORM\Entity(repositoryClass: ClasseRepository::class)]
 class Classe
@@ -15,6 +16,7 @@ class Classe
     private ?int $id = null;
 
     #[ORM\Column(type: Types::TEXT)]
+
     private ?string $nom_classe = null;
 
     public function getId(): ?int
