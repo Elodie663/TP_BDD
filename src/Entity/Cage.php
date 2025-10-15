@@ -17,6 +17,14 @@ class Cage
     #[ORM\Column(type: Types::TEXT)]
     private ?string $numero_cage = null;
 
+    #[ORM\ManyToOne(inversedBy: 'cages')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?Fonctionnalite $fonctionnalite = null;
+
+    #[ORM\ManyToOne(inversedBy: 'cages')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?Allee $allee = null;
+
 
     public function getId(): ?int
     {
@@ -31,6 +39,30 @@ class Cage
     public function setNumeroCage(string $numero_cage): static
     {
         $this->numero_cage = $numero_cage;
+
+        return $this;
+    }
+
+    public function getFonctionnalite(): ?Fonctionnalite
+    {
+        return $this->fonctionnalite;
+    }
+
+    public function setFonctionnalite(?Fonctionnalite $fonctionnalite): static
+    {
+        $this->fonctionnalite = $fonctionnalite;
+
+        return $this;
+    }
+
+    public function getAllee(): ?Allee
+    {
+        return $this->allee;
+    }
+
+    public function setAllee(?Allee $allee): static
+    {
+        $this->allee = $allee;
 
         return $this;
     }
