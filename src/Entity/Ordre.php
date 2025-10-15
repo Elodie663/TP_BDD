@@ -17,6 +17,13 @@ class Ordre
     #[ORM\Column(type: Types::TEXT)]
     private ?string $nom = null;
 
+    #[ORM\OneToOne(inversedBy: 'ordre', cascade: ['persist', 'remove'])]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?Classe $Classe = null;
+
+    #[ORM\OneToOne(mappedBy: 'Ordre', cascade: ['persist', 'remove'])]
+    private ?Famille $famille = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -30,6 +37,35 @@ class Ordre
     public function setNom(string $nom): static
     {
         $this->nom = $nom;
+
+        return $this;
+    }
+
+    public function getClasse(): ?Classe
+    {
+        return $this->Classe;
+    }
+
+    public function setClasse(Classe $Classe): static
+    {
+        $this->Classe = $Classe;
+
+        return $this;
+    }
+
+    public function getFamille(): ?Famille
+    {
+        return $this->famille;
+    }
+
+    public function setFamille(Famille $famille): static
+    {
+        // set the owning side of the relation if necessary
+        if ($famille->getOrdre() !== $this) {
+            $famille->setOrdre($this);
+        }
+
+        $this->famille = $famille;
 
         return $this;
     }

@@ -19,6 +19,10 @@ class Allee
     #[ORM\Column(type: Types::TEXT)]
     private ?string $numero_allee = null;
 
+    #[ORM\ManyToOne(inversedBy: 'allees')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?Employe $Employe = null;
+
     /**
      * @var Collection<int, Cage>
      */
@@ -29,6 +33,7 @@ class Allee
     {
         $this->cages = new ArrayCollection();
     }
+
 
     public function getId(): ?int
     {
@@ -46,6 +51,16 @@ class Allee
 
         return $this;
     }
+
+
+    public function getEmploye(): ?Employe
+    {
+        return $this->Employe;
+    }
+
+    public function setEmploye(?Employe $Employe): static
+    {
+        $this->Employe = $Employe;
 
     /**
      * @return Collection<int, Cage>
@@ -73,6 +88,7 @@ class Allee
                 $cage->setAllee(null);
             }
         }
+
 
         return $this;
     }
