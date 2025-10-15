@@ -28,9 +28,16 @@ class CarnetSante
     #[ORM\OneToMany(targetEntity: Vaccination::class, mappedBy: 'carnetDeSante')]
     private Collection $vaccinations;
 
+    /**
+     * @var Collection<int, Contraction>
+     */
+    #[ORM\OneToMany(targetEntity: Contraction::class, mappedBy: 'CarnetSante')]
+    private Collection $contractions;
+
     public function __construct()
     {
         $this->vaccinations = new ArrayCollection();
+        $this->contractions = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -86,6 +93,36 @@ class CarnetSante
             // set the owning side to null (unless already changed)
             if ($vaccination->getCarnetDeSante() === $this) {
                 $vaccination->setCarnetDeSante(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Contraction>
+     */
+    public function getContractions(): Collection
+    {
+        return $this->contractions;
+    }
+
+    public function addContraction(Contraction $contraction): static
+    {
+        if (!$this->contractions->contains($contraction)) {
+            $this->contractions->add($contraction);
+            $contraction->setCarnetSante($this);
+        }
+
+        return $this;
+    }
+
+    public function removeContraction(Contraction $contraction): static
+    {
+        if ($this->contractions->removeElement($contraction)) {
+            // set the owning side to null (unless already changed)
+            if ($contraction->getCarnetSante() === $this) {
+                $contraction->setCarnetSante(null);
             }
         }
 

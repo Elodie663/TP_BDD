@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\CageRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -24,6 +26,17 @@ class Cage
     #[ORM\ManyToOne(inversedBy: 'cages')]
     #[ORM\JoinColumn(nullable: false)]
     private ?Allee $allee = null;
+
+    /**
+     * @var Collection<int, CageEmploye>
+     */
+    #[ORM\OneToMany(targetEntity: CageEmploye::class, mappedBy: 'Cage')]
+    private Collection $cageEmployes;
+
+    public function __construct()
+    {
+        $this->cageEmployes = new ArrayCollection();
+    }
 
 
     public function getId(): ?int
@@ -63,6 +76,36 @@ class Cage
     public function setAllee(?Allee $allee): static
     {
         $this->allee = $allee;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, CageEmploye>
+     */
+    public function getCageEmployes(): Collection
+    {
+        return $this->cageEmployes;
+    }
+
+    public function addCageEmploye(CageEmploye $cageEmploye): static
+    {
+        if (!$this->cageEmployes->contains($cageEmploye)) {
+            $this->cageEmployes->add($cageEmploye);
+            $cageEmploye->setCage($this);
+        }
+
+        return $this;
+    }
+
+    public function removeCageEmploye(CageEmploye $cageEmploye): static
+    {
+        if ($this->cageEmployes->removeElement($cageEmploye)) {
+            // set the owning side to null (unless already changed)
+            if ($cageEmploye->getCage() === $this) {
+                $cageEmploye->setCage(null);
+            }
+        }
 
         return $this;
     }

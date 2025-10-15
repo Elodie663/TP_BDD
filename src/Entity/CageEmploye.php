@@ -17,6 +17,14 @@ class CageEmploye
     #[ORM\Column(type: Types::DATE_MUTABLE)]
     private ?\DateTime $date_debut = null;
 
+    #[ORM\ManyToOne(inversedBy: 'cageEmployes')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?Cage $Cage = null;
+
+    #[ORM\ManyToOne(inversedBy: 'cageEmployes')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?Employe $Employe = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -30,6 +38,30 @@ class CageEmploye
     public function setDateDebut(\DateTime $date_debut): static
     {
         $this->date_debut = $date_debut;
+
+        return $this;
+    }
+
+    public function getCage(): ?Cage
+    {
+        return $this->Cage;
+    }
+
+    public function setCage(?Cage $Cage): static
+    {
+        $this->Cage = $Cage;
+
+        return $this;
+    }
+
+    public function getEmploye(): ?Employe
+    {
+        return $this->Employe;
+    }
+
+    public function setEmploye(?Employe $Employe): static
+    {
+        $this->Employe = $Employe;
 
         return $this;
     }

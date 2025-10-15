@@ -40,9 +40,16 @@ class Employe
     #[ORM\OneToMany(targetEntity: Allee::class, mappedBy: 'Employe')]
     private Collection $allees;
 
+    /**
+     * @var Collection<int, CageEmploye>
+     */
+    #[ORM\OneToMany(targetEntity: CageEmploye::class, mappedBy: 'Employe')]
+    private Collection $cageEmployes;
+
     public function __construct()
     {
         $this->allees = new ArrayCollection();
+        $this->cageEmployes = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -146,6 +153,36 @@ class Employe
             // set the owning side to null (unless already changed)
             if ($allee->getEmploye() === $this) {
                 $allee->setEmploye(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, CageEmploye>
+     */
+    public function getCageEmployes(): Collection
+    {
+        return $this->cageEmployes;
+    }
+
+    public function addCageEmploye(CageEmploye $cageEmploye): static
+    {
+        if (!$this->cageEmployes->contains($cageEmploye)) {
+            $this->cageEmployes->add($cageEmploye);
+            $cageEmploye->setEmploye($this);
+        }
+
+        return $this;
+    }
+
+    public function removeCageEmploye(CageEmploye $cageEmploye): static
+    {
+        if ($this->cageEmployes->removeElement($cageEmploye)) {
+            // set the owning side to null (unless already changed)
+            if ($cageEmploye->getEmploye() === $this) {
+                $cageEmploye->setEmploye(null);
             }
         }
 
