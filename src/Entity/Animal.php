@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\AnimalRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -34,6 +36,40 @@ class Animal
 
     #[ORM\Column]
     private ?bool $adoptable = null;
+
+    /**
+     * @var Collection<int, Provenance>
+     */
+    #[ORM\OneToMany(targetEntity: Provenance::class, mappedBy: 'animal')]
+    private Collection $provenances;
+
+    /**
+     * @var Collection<int, Adoption>
+     */
+    #[ORM\OneToMany(targetEntity: Adoption::class, mappedBy: 'animal')]
+    private Collection $adoptions;
+
+    #[ORM\ManyToOne(inversedBy: 'animals')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?Famille $famille = null;
+
+    #[ORM\ManyToOne(inversedBy: 'animals')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?CarnetSante $carnetDeSante = null;
+
+    #[ORM\ManyToOne(inversedBy: 'animals')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?Menu $menu = null;
+
+    #[ORM\ManyToOne(inversedBy: 'animals')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?Cage $cage = null;
+
+    public function __construct()
+    {
+        $this->provenances = new ArrayCollection();
+        $this->adoptions = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -120,6 +156,114 @@ class Animal
     public function setAdoptable(bool $adoptable): static
     {
         $this->adoptable = $adoptable;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Provenance>
+     */
+    public function getProvenances(): Collection
+    {
+        return $this->provenances;
+    }
+
+    public function addProvenance(Provenance $provenance): static
+    {
+        if (!$this->provenances->contains($provenance)) {
+            $this->provenances->add($provenance);
+            $provenance->setAnimal($this);
+        }
+
+        return $this;
+    }
+
+    public function removeProvenance(Provenance $provenance): static
+    {
+        if ($this->provenances->removeElement($provenance)) {
+            // set the owning side to null (unless already changed)
+            if ($provenance->getAnimal() === $this) {
+                $provenance->setAnimal(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Adoption>
+     */
+    public function getAdoptions(): Collection
+    {
+        return $this->adoptions;
+    }
+
+    public function addAdoption(Adoption $adoption): static
+    {
+        if (!$this->adoptions->contains($adoption)) {
+            $this->adoptions->add($adoption);
+            $adoption->setAnimal($this);
+        }
+
+        return $this;
+    }
+
+    public function removeAdoption(Adoption $adoption): static
+    {
+        if ($this->adoptions->removeElement($adoption)) {
+            // set the owning side to null (unless already changed)
+            if ($adoption->getAnimal() === $this) {
+                $adoption->setAnimal(null);
+            }
+        }
+
+        return $this;
+    }
+
+    public function getFamille(): ?Famille
+    {
+        return $this->famille;
+    }
+
+    public function setFamille(?Famille $famille): static
+    {
+        $this->famille = $famille;
+
+        return $this;
+    }
+
+    public function getCarnetDeSante(): ?CarnetSante
+    {
+        return $this->carnetDeSante;
+    }
+
+    public function setCarnetDeSante(?CarnetSante $carnetDeSante): static
+    {
+        $this->carnetDeSante = $carnetDeSante;
+
+        return $this;
+    }
+
+    public function getMenu(): ?Menu
+    {
+        return $this->menu;
+    }
+
+    public function setMenu(?Menu $menu): static
+    {
+        $this->menu = $menu;
+
+        return $this;
+    }
+
+    public function getCage(): ?Cage
+    {
+        return $this->cage;
+    }
+
+    public function setCage(?Cage $cage): static
+    {
+        $this->cage = $cage;
 
         return $this;
     }
