@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\EmployeRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: EmployeRepository::class)]
@@ -27,6 +29,21 @@ class Employe
 
     #[ORM\Column(length: 50)]
     private ?string $poste = null;
+
+    #[ORM\ManyToOne(inversedBy: 'employes')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?VilleResidence $VilleResidence = null;
+
+    /**
+     * @var Collection<int, Allee>
+     */
+    #[ORM\OneToMany(targetEntity: Allee::class, mappedBy: 'Employe')]
+    private Collection $allees;
+
+    public function __construct()
+    {
+        $this->allees = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -89,6 +106,48 @@ class Employe
     public function setPoste(string $poste): static
     {
         $this->poste = $poste;
+
+        return $this;
+    }
+
+    public function getVilleResidence(): ?VilleResidence
+    {
+        return $this->VilleResidence;
+    }
+
+    public function setVilleResidence(?VilleResidence $VilleResidence): static
+    {
+        $this->VilleResidence = $VilleResidence;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Allee>
+     */
+    public function getAllees(): Collection
+    {
+        return $this->allees;
+    }
+
+    public function addAllee(Allee $allee): static
+    {
+        if (!$this->allees->contains($allee)) {
+            $this->allees->add($allee);
+            $allee->setEmploye($this);
+        }
+
+        return $this;
+    }
+
+    public function removeAllee(Allee $allee): static
+    {
+        if ($this->allees->removeElement($allee)) {
+            // set the owning side to null (unless already changed)
+            if ($allee->getEmploye() === $this) {
+                $allee->setEmploye(null);
+            }
+        }
 
         return $this;
     }

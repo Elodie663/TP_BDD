@@ -5,6 +5,7 @@ namespace App\Entity;
 use App\Repository\ClasseRepository;
 
 use Doctrine\DBAL\Types\Types;
+use Doctrine\ORM\Mapping as ORM;
 
 
 #[ORM\Entity(repositoryClass: ClasseRepository::class)]
@@ -19,6 +20,9 @@ class Classe
 
     private ?string $nom_classe = null;
 
+    #[ORM\OneToOne(mappedBy: 'Classe', cascade: ['persist', 'remove'])]
+    private ?Ordre $ordre = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -32,6 +36,23 @@ class Classe
     public function setNomClasse(string $nom_classe): static
     {
         $this->nom_classe = $nom_classe;
+
+        return $this;
+    }
+
+    public function getOrdre(): ?Ordre
+    {
+        return $this->ordre;
+    }
+
+    public function setOrdre(Ordre $ordre): static
+    {
+        // set the owning side of the relation if necessary
+        if ($ordre->getClasse() !== $this) {
+            $ordre->setClasse($this);
+        }
+
+        $this->ordre = $ordre;
 
         return $this;
     }

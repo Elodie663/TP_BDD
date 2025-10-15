@@ -17,6 +17,10 @@ class Allee
     #[ORM\Column(type: Types::TEXT)]
     private ?string $numero_allee = null;
 
+    #[ORM\ManyToOne(inversedBy: 'allees')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?Employe $Employe = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -30,6 +34,18 @@ class Allee
     public function setNumeroAllee(string $numero_allee): static
     {
         $this->numero_allee = $numero_allee;
+
+        return $this;
+    }
+
+    public function getEmploye(): ?Employe
+    {
+        return $this->Employe;
+    }
+
+    public function setEmploye(?Employe $Employe): static
+    {
+        $this->Employe = $Employe;
 
         return $this;
     }
