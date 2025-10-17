@@ -22,9 +22,16 @@
                 <td>{{ adoption.dateAdoption ? adoption.dateAdoption|date('Y-m-d') : '' }}</td>
                 <td>{{ adoption.prixAdoption }}</td>
                 <td>{{ adoption.statut }}</td>
+                <td>{{ adpotion.animal.nom }}</td>
+
+                <td> {{ adoption.nom.animal }}</td>
+
+
+
                 <td>
                     <a href="{{ path('app_adoption_show', {'id': adoption.id}) }}">show</a>
                     <a href="{{ path('app_adoption_edit', {'id': adoption.id}) }}">edit</a>
+                    
                 </td>
             </tr>
         {% else %}
