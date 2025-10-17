@@ -1,0 +1,13 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Edit Provenance{% endblock %}
+
+{% block body %}
+    <h1>Edit Provenance</h1>
+
+    {{ include('provenance/_form.html.twig', {'button_label': 'Update'}) }}
+
+    <a href="{{ path('app_provenance_index') }}">back to list</a>
+
+    {{ include('provenance/_delete_form.html.twig') }}
+{% endblock %}

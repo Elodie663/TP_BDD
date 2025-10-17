@@ -1,0 +1,39 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}VilleResidence index{% endblock %}
+
+{% block body %}
+    <h1>VilleResidence index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>NomVille</th>
+                <th>CodePostal</th>
+                <th>Pays</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for ville_residence in ville_residences %}
+            <tr>
+                <td>{{ ville_residence.id }}</td>
+                <td>{{ ville_residence.nomVille }}</td>
+                <td>{{ ville_residence.codePostal }}</td>
+                <td>{{ ville_residence.pays }}</td>
+                <td>
+                    <a href="{{ path('app_ville_residence_show', {'id': ville_residence.id}) }}">show</a>
+                    <a href="{{ path('app_ville_residence_edit', {'id': ville_residence.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="5">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_ville_residence_new') }}">Create new</a>
+{% endblock %}

@@ -5,7 +5,6 @@ namespace App\Entity;
 use App\Repository\CageRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
-use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use App\Entity\Animal;
 use App\Entity\CageEmploye;
@@ -20,7 +19,7 @@ class Cage
     #[ORM\Column]
     private ?int $id = null;
 
-    #[ORM\Column(type: Types::TEXT)]
+    #[ORM\Column(length: 255)]
     private ?string $numero_cage = null;
 
     #[ORM\ManyToOne(inversedBy: 'cages')]
@@ -31,16 +30,10 @@ class Cage
     #[ORM\JoinColumn(nullable: false)]
     private ?Allee $allee = null;
 
-    /**
-     * @var Collection<int, CageEmploye>
-     */
-    #[ORM\OneToMany(targetEntity: CageEmploye::class, mappedBy: 'cage')]
+    #[ORM\OneToMany(mappedBy: 'cage', targetEntity: CageEmploye::class, cascade: ['persist', 'remove'], orphanRemoval: true)]
     private Collection $cageEmployes;
 
-    /**
-     * @var Collection<int, Animal>
-     */
-    #[ORM\OneToMany(targetEntity: Animal::class, mappedBy: 'cage')]
+    #[ORM\OneToMany(mappedBy: 'cage', targetEntity: Animal::class, cascade: ['persist', 'remove'], orphanRemoval: true)]
     private Collection $animals;
 
     public function __construct()
@@ -48,8 +41,6 @@ class Cage
         $this->cageEmployes = new ArrayCollection();
         $this->animals = new ArrayCollection();
     }
-
-    // Getters & setters
 
     public function getId(): ?int
     {
@@ -89,7 +80,6 @@ class Cage
         return $this;
     }
 
-    // CageEmployes
     public function getCageEmployes(): Collection
     {
         return $this->cageEmployes;
@@ -114,7 +104,6 @@ class Cage
         return $this;
     }
 
-    // Animals
     public function getAnimals(): Collection
     {
         return $this->animals;
