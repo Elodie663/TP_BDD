@@ -1,0 +1,13 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Edit Contraction{% endblock %}
+
+{% block body %}
+    <h1>Edit Contraction</h1>
+
+    {{ include('contraction/_form.html.twig', {'button_label': 'Update'}) }}
+
+    <a href="{{ path('app_contraction_index') }}">back to list</a>
+
+    {{ include('contraction/_delete_form.html.twig') }}
+{% endblock %}

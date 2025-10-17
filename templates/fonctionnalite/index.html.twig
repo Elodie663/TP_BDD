@@ -1,0 +1,37 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Fonctionnalite index{% endblock %}
+
+{% block body %}
+    <h1>Fonctionnalite index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Nom</th>
+                <th>Description</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for fonctionnalite in fonctionnalites %}
+            <tr>
+                <td>{{ fonctionnalite.id }}</td>
+                <td>{{ fonctionnalite.nom }}</td>
+                <td>{{ fonctionnalite.description }}</td>
+                <td>
+                    <a href="{{ path('app_fonctionnalite_show', {'id': fonctionnalite.id}) }}">show</a>
+                    <a href="{{ path('app_fonctionnalite_edit', {'id': fonctionnalite.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="4">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_fonctionnalite_new') }}">Create new</a>
+{% endblock %}

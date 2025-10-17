@@ -1,0 +1,35 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}CageEmploye index{% endblock %}
+
+{% block body %}
+    <h1>CageEmploye index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Date_debut</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for cage_employe in cage_employes %}
+            <tr>
+                <td>{{ cage_employe.id }}</td>
+                <td>{{ cage_employe.dateDebut ? cage_employe.dateDebut|date('Y-m-d') : '' }}</td>
+                <td>
+                    <a href="{{ path('app_cage_employe_show', {'id': cage_employe.id}) }}">show</a>
+                    <a href="{{ path('app_cage_employe_edit', {'id': cage_employe.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="3">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_cage_employe_new') }}">Create new</a>
+{% endblock %}

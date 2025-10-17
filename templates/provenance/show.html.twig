@@ -1,0 +1,34 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Provenance{% endblock %}
+
+{% block body %}
+    <h1>Provenance</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ provenance.id }}</td>
+            </tr>
+            <tr>
+                <th>Date_arrivee_pays</th>
+                <td>{{ provenance.dateArriveePays ? provenance.dateArriveePays|date('Y-m-d') : '' }}</td>
+            </tr>
+            <tr>
+                <th>Date_depart_pays</th>
+                <td>{{ provenance.dateDepartPays ? provenance.dateDepartPays|date('Y-m-d') : '' }}</td>
+            </tr>
+            <tr>
+                <th>Motif_transfert</th>
+                <td>{{ provenance.motifTransfert }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_provenance_index') }}">back to list</a>
+
+    <a href="{{ path('app_provenance_edit', {'id': provenance.id}) }}">edit</a>
+
+    {{ include('provenance/_delete_form.html.twig') }}
+{% endblock %}
