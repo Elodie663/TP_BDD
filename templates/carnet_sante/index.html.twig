@@ -1,0 +1,37 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}CarnetSante index{% endblock %}
+
+{% block body %}
+    <h1>CarnetSante index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Date_creation</th>
+                <th>Observations_generales</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for carnet_sante in carnet_santes %}
+            <tr>
+                <td>{{ carnet_sante.id }}</td>
+                <td>{{ carnet_sante.dateCreation ? carnet_sante.dateCreation|date('Y-m-d') : '' }}</td>
+                <td>{{ carnet_sante.observationsGenerales }}</td>
+                <td>
+                    <a href="{{ path('app_carnet_sante_show', {'id': carnet_sante.id}) }}">show</a>
+                    <a href="{{ path('app_carnet_sante_edit', {'id': carnet_sante.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="4">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_carnet_sante_new') }}">Create new</a>
+{% endblock %}

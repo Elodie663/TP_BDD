@@ -60,7 +60,7 @@ class Allee
 
     public function setEmploye(?Employe $employe): static
     {
-        $this->Employe = $employe;
+        $this->employe = $employe;
         return $this;
     }
     /**
