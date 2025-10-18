@@ -1,0 +1,96 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Menu index{% endblock %}
+
+{% block body %}
+
+  <style>
+    body {
+      background-color: #ffffff;
+    }
+
+    h1 {
+      text-align: center;
+      margin-bottom: 30px;
+    }
+
+    .table {
+      width: 90%;
+      margin: 0 auto 30px auto;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+
+    .table th, .table td {
+      border: 1px solid #ccc;
+      padding: 10px 15px;
+      text-align: center;
+    }
+
+    a {
+      color: #7bdeaeff;
+      text-decoration: none;
+      margin: 0 5px;
+      font-weight: bold;
+    }
+
+    a:hover {
+      color: #060303ff;
+    }
+
+    .create-button {
+      display: block;
+      width: fit-content;
+      margin: 20px auto;
+      padding: 10px 20px;
+      background-color: #7bdeaeff;
+      color: #ffffffff;
+      border-radius: 5px;
+      text-align: center;
+    }
+  </style>
+
+  <h1>Menu index</h1>
+
+  <table class="table">
+    <thead>
+      <tr>
+        <th>Id</th>
+        <th>Animaux</th>
+        <th>Quantite_viande</th>
+        <th>Quantite_legumes</th>
+        <th>Type_menu</th>
+        <th>actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for menu in menus %}
+        <tr>
+          <td>{{ menu.id }}</td>
+<td>
+  {% for animal in menu.animals %} {# obligation de boucler car la relation est inversée dans notre BDD#}
+                                    {#relation OneToMany (un menu → plusieurs animaux)#}
+    {{ animal.nomAnimal }}, 
+  {% endfor %}
+</td>
+          {# <td>{{ menu.animal.nomAnimal }}</td> #}
+          <td>{{ menu.quantiteViande }}</td>
+          <td>{{ menu.quantiteLegumes }}</td>
+          <td>{{ menu.typeMenu }}</td>
+          <td>
+            <a href="{{ path('app_menu_show', {'id': menu.id}) }}">show</a>
+            <a href="{{ path('app_menu_edit', {'id': menu.id}) }}">edit</a>
+          </td>
+        </tr>
+      {% else %}
+        <tr>
+          <td colspan="5">no records found</td>
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+
+  <a href="{{ path('app_menu_new') }}" class="create-button">Create new</a>
+
+ 
+
+{% endblock %}

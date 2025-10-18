@@ -1,0 +1,88 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Adoption index{% endblock %}
+
+{% block body %}
+<style>
+  body {
+    background-color: #ffffff;
+  }
+  h1 {
+    text-align: center;
+    margin-bottom: 30px;
+  }
+  .table {
+    width: 90%;
+    margin: 0 auto 30px auto;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  }
+  .table th, .table td {
+    border: 1px solid #ccc;
+    padding: 10px 15px;
+    text-align: center;
+  }
+  .table thead {
+    background-color: #267c60;
+    color: white;
+  }
+  a {
+    color: #7bdeaeff;
+    text-decoration: none;
+    margin: 0 5px;
+    font-weight: bold;
+  }
+  a:hover {
+    color: #060303ff;
+  }
+  .create-button {
+    display: block;
+    width: fit-content;
+    margin: 20px auto;
+    padding: 10px 20px;
+    background-color: #7bdeaeff;
+    color: #ffffffff;
+    border-radius: 5px;
+    text-align: center;
+    text-decoration: none;
+  }
+</style>
+
+<h1>Adoption index</h1>
+
+<table class="table">
+  <thead>
+    <tr>
+      <th>Id</th>
+      <th>Date adoption</th>
+      <th>Prix adoption</th>
+      <th>Statut</th>
+      <th>Animal</th>
+      <th>Adoptant</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for adoption in adoptions %}
+      <tr>
+        <td>{{ adoption.id }}</td>
+        <td>{{ adoption.dateAdoption ? adoption.dateAdoption|date('Y-m-d') : '' }}</td>
+        <td>{{ adoption.prixAdoption }}</td>
+        <td>{{ adoption.statut }}</td>
+        <td>{{ adoption.animal.nomAnimal }}</td>
+        <td>{{ adoption.adoptant.nomAdoptant }} {{ adoption.adoptant.prenomAdoptant }}</td>
+        <td>
+          <a href="{{ path('app_adoption_show', {'id': adoption.id}) }}">Afficher</a>
+          <a href="{{ path('app_adoption_edit', {'id': adoption.id}) }}">Modifier</a>
+        </td>
+      </tr>
+    {% else %}
+      <tr>
+        <td colspan="6">Aucun enregistrement trouvé</td>
+      </tr>
+    {% endfor %}
+  </tbody>
+</table>
+
+<a href="{{ path('app_adoption_new') }}" class="create-button">Créer une nouvelle adoption</a>
+
+{% endblock %}

@@ -1,0 +1,39 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Provenance index{% endblock %}
+
+{% block body %}
+    <h1>Provenance index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Date_arrivee_pays</th>
+                <th>Date_depart_pays</th>
+                <th>Motif_transfert</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for provenance in provenances %}
+            <tr>
+                <td>{{ provenance.id }}</td>
+                <td>{{ provenance.dateArriveePays ? provenance.dateArriveePays|date('Y-m-d') : '' }}</td>
+                <td>{{ provenance.dateDepartPays ? provenance.dateDepartPays|date('Y-m-d') : '' }}</td>
+                <td>{{ provenance.motifTransfert }}</td>
+                <td>
+                    <a href="{{ path('app_provenance_show', {'id': provenance.id}) }}">show</a>
+                    <a href="{{ path('app_provenance_edit', {'id': provenance.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="5">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_provenance_new') }}">Create new</a>
+{% endblock %}

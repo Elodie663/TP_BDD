@@ -4,7 +4,46 @@
         <meta charset="UTF-8">
         <title>{% block title %}Welcome!{% endblock %}</title>
         <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 128 128%22><text y=%221.2em%22 font-size=%2296%22>⚫️</text><text y=%221.3em%22 x=%220.2em%22 font-size=%2276%22 fill=%22%23fff%22>sf</text></svg>">
+        
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
         {% block stylesheets %}
+        <style>
+            /* Dégradé blanc-vert pour la navbar */
+            .navbar-gradient {
+                background: linear-gradient(90deg, #ffffff 0%, #267c60 100%) !important;
+            }
+            /* Texte et liens en vert foncé pour contraste */
+            .navbar-gradient .navbar-brand,
+            .navbar-gradient .nav-link {
+                color: #000000ff!important;
+                font-weight: bold;
+                transition: color 0.3s ease;
+            }
+            .navbar-gradient .nav-link:hover,
+            .navbar-gradient .navbar-brand:hover {
+                color: #001a00 !important;
+            }
+            /* Navbar-toggler icon (burger) color */
+            .navbar-gradient .navbar-toggler-icon {
+                filter: invert(30%) sepia(70%) saturate(400%) hue-rotate(90deg);
+            }
+            .footer {
+                background: linear-gradient(90deg, #267c60 0%, #ffffff 100%);
+                color: #267c60;
+                font-weight: bold;
+                position: fixed;
+                bottom: 0;
+                width: 100%;
+                height: 15px;
+                padding: 0;
+                margin: 0;
+                font-size: 10px;
+                line-height: 15px;
+                text-align: center;
+                box-shadow: 0 -1px 2px rgba(0, 0, 0, 0.05);
+                z-index: 999;
+            }
+        </style>
         {% endblock %}
 
         {% block javascripts %}
@@ -12,6 +51,54 @@
         {% endblock %}
     </head>
     <body>
+        {# Navbar #}
+        <nav class="navbar navbar-expand-lg navbar-gradient">
+            <div class="container-fluid">
+                <a class="navbar-brand" href="{{ path('app_home') }}">Gestion Refuge</a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav">
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ path('app_animal_index') }}">Animaux</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ path('app_cage_index') }}">Cages</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ path('app_allee_index') }}">Allées</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ path('app_adoption_index') }}">Adoptions</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ path('app_adptant_index') }}">Adoptants</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ path('app_employe_index') }}">Employés</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ path('app_menu_index') }}">Menu des animaux</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ path('app_carnet_sante_index') }}">Carnet de santé</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ path('app_login') }}">Connexion</a>
+                        </li>
+                        <li class="nav-item">
+                                <a class="nav-link" href="{{ path('app_register') }}">Inscription</a>
+                        </li>        
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
         {% block body %}{% endblock %}
+        
+<footer class="footer mt-auto py-3 text-center">
+    <p class="mb-0">© 2025 - Application réalisée par Chloé & Elodie</p>
+</footer>
     </body>
 </html>

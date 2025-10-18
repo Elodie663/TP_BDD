@@ -1,0 +1,11 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}New CageEmploye{% endblock %}
+
+{% block body %}
+    <h1>Create new CageEmploye</h1>
+
+    {{ include('cage_employe/_form.html.twig') }}
+
+    <a href="{{ path('app_cage_employe_index') }}">back to list</a>
+{% endblock %}

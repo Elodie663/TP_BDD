@@ -1,0 +1,74 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}New CarnetSante{% endblock %}
+
+{% block body %}
+
+  <style>
+    .content-wrapper {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 80vh;
+      padding: 20px;
+      box-sizing: border-box;
+    }
+
+    h1 {
+      margin-bottom: 30px;
+      text-align: center;
+    }
+
+    form {
+      width: 100%;
+      max-width: 500px;
+      margin-bottom: 20px;
+    }
+
+    form > div {
+      margin-bottom: 15px; /* espace entre chaque champ */
+    }
+
+    /* Style bouton submit */
+    form button[type="submit"],
+    form input[type="submit"] {
+      background-color: #7bdeaeff !important;
+      color: #fff !important;
+      border: none !important;
+      padding: 10px 25px !important;
+      font-size: 1rem !important;
+      border-radius: 5px !important;
+      cursor: pointer !important;
+      font-weight: bold !important;
+      transition: background-color 0.3s ease !important;
+    }
+
+    form button[type="submit"]:hover,
+    form input[type="submit"]:hover {
+      background-color: #60c995ff !important;
+    }
+
+    a {
+      color: #7bdeaeff;
+      text-decoration: none;
+      font-weight: bold;
+      margin-top: 10px;
+    }
+
+    a:hover {
+      color: #060303ff;
+    }
+  </style>
+
+  <div class="content-wrapper">
+
+    <h1>Create new CarnetSante</h1>
+
+    {{ include('carnet_sante/_form.html.twig') }}
+
+    <a href="{{ path('app_carnet_sante_index') }}">back to list</a>
+
+  </div>
+
+{% endblock %}

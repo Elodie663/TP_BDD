@@ -1,0 +1,42 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Adptant{% endblock %}
+
+{% block body %}
+    <h1>Adptant</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ adptant.id }}</td>
+            </tr>
+            <tr>
+                <th>Nom_adoptant</th>
+                <td>{{ adptant.nomAdoptant }}</td>
+            </tr>
+            <tr>
+                <th>Prenom_adoptant</th>
+                <td>{{ adptant.prenomAdoptant }}</td>
+            </tr>
+            <tr>
+                <th>Adresse_adoptant</th>
+                <td>{{ adptant.adresseAdoptant }}</td>
+            </tr>
+            <tr>
+                <th>Telephone_adoptant</th>
+                <td>{{ adptant.telephoneAdoptant }}</td>
+            </tr>
+            <tr>
+                <th>Genre_animal_souhaite</th>
+                <td>{{ adptant.genreAnimalSouhaite }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_adptant_index') }}">back to list</a>
+
+    <a href="{{ path('app_adptant_edit', {'id': adptant.id}) }}">edit</a>
+
+    {{ include('adptant/_delete_form.html.twig') }}
+{% endblock %}
