@@ -3,6 +3,7 @@
 {% block title %}New Adoption{% endblock %}
 
 {% block body %}
+
   <style>
     .content-wrapper {
       display: flex;
@@ -61,10 +62,13 @@
   </style>
 
   <div class="content-wrapper">
+
     <h1>Create new Adoption</h1>
 
     {{ include('adoption/_form.html.twig') }}
 
     <a href="{{ path('app_adoption_index') }}">back to list</a>
+
   </div>
+
 {% endblock %}

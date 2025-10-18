@@ -3,6 +3,7 @@
 {% block title %}New Adptant{% endblock %}
 
 {% block body %}
+
   <style>
     .content-wrapper {
       display: flex;
@@ -61,10 +62,13 @@
   </style>
 
   <div class="content-wrapper">
+
     <h1>Create new Adptant</h1>
 
     {{ include('adptant/_form.html.twig') }}
 
     <a href="{{ path('app_adptant_index') }}">back to list</a>
+
   </div>
+
 {% endblock %}

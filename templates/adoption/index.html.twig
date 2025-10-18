@@ -3,7 +3,7 @@
 {% block title %}Adoption index{% endblock %}
 
 {% block body %}
-  <style>
+
     body {
       background-color: #ffffff;
     }
@@ -87,4 +87,46 @@
   </table>
 
   <a href="{{ path('app_adoption_new') }}" class="create-button">Create new</a>
+
+    <h1>Adoption index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Date_adoption</th>
+                <th>Prix_adoption</th>
+                <th>Statut</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for adoption in adoptions %}
+            <tr>
+                <td>{{ adoption.id }}</td>
+                <td>{{ adoption.dateAdoption ? adoption.dateAdoption|date('Y-m-d') : '' }}</td>
+                <td>{{ adoption.prixAdoption }}</td>
+                <td>{{ adoption.statut }}</td>
+                <td>{{ adpotion.animal.nom }}</td>
+
+                <td> {{ adoption.nom.animal }}</td>
+
+
+
+                <td>
+                    <a href="{{ path('app_adoption_show', {'id': adoption.id}) }}">show</a>
+                    <a href="{{ path('app_adoption_edit', {'id': adoption.id}) }}">edit</a>
+                    
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="5">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_adoption_new') }}">Create new</a>
+
 {% endblock %}

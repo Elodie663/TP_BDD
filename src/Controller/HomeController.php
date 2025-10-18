@@ -12,17 +12,19 @@ final class HomeController extends AbstractController
 {
     #[Route('/', name: 'app_home')]
     public function index(
-        AnimalRepository $animalRepository,
-        AdoptionRepository $adoptionRepository
+ AnimalRepository $animalRepository,
+ AdoptionRepository $adoptionRepository
 
     ): Response
-    //récupérer tous les animaux adoptables
+//récupérer tous les animaux adoptables
+{
+$animaux = $animalRepository->findBy(['adoptable' => true]);
+
     {
-        $animaux = $animalRepository->findBy(['adoptable' => true]); {
-            return $this->render('home/index.html.twig', [
-                // 'controller_name' => 'HomeController',
-                'animaux' => $animaux
-            ]);
-        }
+        return $this->render('home/index.html.twig', [
+            // 'controller_name' => 'HomeController',
+            'animaux' => $animaux
+        ]);
     }
+}
 }

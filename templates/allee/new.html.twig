@@ -3,6 +3,7 @@
 {% block title %}New Allee{% endblock %}
 
 {% block body %}
+
   <style>
     .content-wrapper {
       display: flex;
@@ -61,10 +62,13 @@
   </style>
 
   <div class="content-wrapper">
+
     <h1>Create new Allee</h1>
 
     {{ include('allee/_form.html.twig') }}
 
     <a href="{{ path('app_allee_index') }}">back to list</a>
+ chloedeux
   </div>
+
 {% endblock %}

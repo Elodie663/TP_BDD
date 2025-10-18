@@ -3,6 +3,7 @@
 {% block title %}New Cage{% endblock %}
 
 {% block body %}
+
   <style>
     .content-wrapper {
       display: flex;
@@ -61,10 +62,13 @@
   </style>
 
   <div class="content-wrapper">
+
     <h1>Create new Cage</h1>
 
     {{ include('cage/_form.html.twig') }}
 
     <a href="{{ path('app_cage_index') }}">back to list</a>
+
   </div>
+
 {% endblock %}

@@ -3,6 +3,7 @@
 {% block title %}New Employe{% endblock %}
 
 {% block body %}
+
   <style>
     .content-wrapper {
       display: flex;
@@ -60,10 +61,13 @@
   </style>
 
   <div class="content-wrapper">
+
     <h1>Create new Employe</h1>
 
     {{ include('employe/_form.html.twig') }}
 
     <a href="{{ path('app_employe_index') }}">back to list</a>
+
   </div>
+
 {% endblock %}
