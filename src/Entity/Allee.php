@@ -63,6 +63,7 @@ class Allee
         $this->employe = $employe;
         return $this;
     }
+
     /**
      * @return Collection<int, Cage>
      */
@@ -94,4 +95,3 @@ class Allee
         return $this;
     }
 }
-

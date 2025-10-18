@@ -3,6 +3,91 @@
 {% block title %}Employe index{% endblock %}
 
 {% block body %}
+
+  <style>
+    body {
+      background-color: #ffffff;
+    }
+
+    h1 {
+      text-align: center;
+      margin-bottom: 30px;
+    }
+
+    .table {
+      width: 90%;
+      margin: 0 auto 30px auto;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+
+    .table th, .table td {
+      border: 1px solid #ccc;
+      padding: 10px 15px;
+      text-align: center;
+    }
+
+
+    a {
+      color: #7bdeaeff;
+      text-decoration: none;
+      margin: 0 5px;
+      font-weight: bold;
+    }
+
+    a:hover {
+      color: #060303ff;
+    }
+
+    .create-button {
+      display: block;
+      width: fit-content;
+      margin: 20px auto;
+      padding: 10px 20px;
+      background-color: #7bdeaeff;
+      color: #ffffffff;
+      border-radius: 5px;
+      text-align: center;
+    }
+  </style>
+
+  <h1>Employe index</h1>
+
+  <table class="table">
+    <thead>
+      <tr>
+        <th>Id</th>
+        <th>Nom_employe</th>
+        <th>Prenom_employe</th>
+        <th>Age</th>
+        <th>Sexe</th>
+        <th>Poste</th>
+        <th>actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for employe in employes %}
+        <tr>
+          <td>{{ employe.id }}</td>
+          <td>{{ employe.nomEmploye }}</td>
+          <td>{{ employe.prenomEmploye }}</td>
+          <td>{{ employe.age }}</td>
+          <td>{{ employe.sexe }}</td>
+          <td>{{ employe.poste }}</td>
+          <td>
+            <a href="{{ path('app_employe_show', {'id': employe.id}) }}">show</a>
+            <a href="{{ path('app_employe_edit', {'id': employe.id}) }}">edit</a>
+          </td>
+        </tr>
+      {% else %}
+        <tr>
+          <td colspan="7">no records found</td>
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+
+  <a href="{{ path('app_employe_new') }}" class="create-button">Create new</a>
+
     <h1>Employe index</h1>
 
     <table class="table">
@@ -40,4 +125,5 @@
     </table>
 
     <a href="{{ path('app_employe_new') }}">Create new</a>
+
 {% endblock %}

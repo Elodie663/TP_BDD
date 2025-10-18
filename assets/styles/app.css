@@ -1,3 +1,54 @@
 body {
-    background-color: skyblue;
+  background-color: #ffffff;
+  font-family: Arial, sans-serif;
+  font-style: italic;
+}
+
+h1 {
+  font-family: Georgia, serif;
+}
+
+.card {
+  background: linear-gradient(to bottom, #267c60, #4caf50, #7bdeaeff);
+  color: white;
+  border-radius: 10px;
+  padding: 10px;
+
+  transition: transform 0.2s ease-in-out; /* Transition douce de 0.2 seconde sur la transformation, pour animer le zoom au survol */
+}
+/* Effet au survol de la souris sur la carte */
+.card:hover {
+  transform: scale(1.03);
+}
+
+.card-title {
+  color: rgb(0, 0, 0);
+  font-style: italic;
+}
+.card-text {
+  color: rgb(126, 25, 25);
+  font-style: italic;
+}
+
+.btn-primary {
+  background-color: #0f9e71;
+  border-color: #28a745;
+  color: white;
+}
+
+.btn-primary:hover {
+  background-color: #218838 !important;
+  border-color: #1e7e34 !important;
+}
+
+.card-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  justify-content: center;
+}
+
+.card {
+  width: 300px;
+  flex-shrink: 0;
 }
