@@ -50,7 +50,7 @@
     }
   </style>
 
-  <h1>Employe index</h1>
+  <h1>Liste des employés</h1>
 
   <table class="table">
     <thead>
@@ -88,42 +88,6 @@
 
   <a href="{{ path('app_employe_new') }}" class="create-button">Create new</a>
 
-    <h1>Employe index</h1>
 
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Id</th>
-                <th>Nom_employe</th>
-                <th>Prenom_employe</th>
-                <th>Age</th>
-                <th>Sexe</th>
-                <th>Poste</th>
-                <th>actions</th>
-            </tr>
-        </thead>
-        <tbody>
-        {% for employe in employes %}
-            <tr>
-                <td>{{ employe.id }}</td>
-                <td>{{ employe.nomEmploye }}</td>
-                <td>{{ employe.prenomEmploye }}</td>
-                <td>{{ employe.age }}</td>
-                <td>{{ employe.sexe }}</td>
-                <td>{{ employe.poste }}</td>
-                <td>
-                    <a href="{{ path('app_employe_show', {'id': employe.id}) }}">show</a>
-                    <a href="{{ path('app_employe_edit', {'id': employe.id}) }}">edit</a>
-                </td>
-            </tr>
-        {% else %}
-            <tr>
-                <td colspan="7">no records found</td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
-
-    <a href="{{ path('app_employe_new') }}">Create new</a>
-
+    
 {% endblock %}

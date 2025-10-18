@@ -55,6 +55,7 @@
     <thead>
       <tr>
         <th>Id</th>
+        <th>Animaux</th>
         <th>Quantite_viande</th>
         <th>Quantite_legumes</th>
         <th>Type_menu</th>
@@ -65,6 +66,13 @@
       {% for menu in menus %}
         <tr>
           <td>{{ menu.id }}</td>
+<td>
+  {% for animal in menu.animals %} {# obligation de boucler car la relation est inversée dans notre BDD#}
+                                    {#relation OneToMany (un menu → plusieurs animaux)#}
+    {{ animal.nomAnimal }}, 
+  {% endfor %}
+</td>
+          {# <td>{{ menu.animal.nomAnimal }}</td> #}
           <td>{{ menu.quantiteViande }}</td>
           <td>{{ menu.quantiteLegumes }}</td>
           <td>{{ menu.typeMenu }}</td>
@@ -83,38 +91,6 @@
 
   <a href="{{ path('app_menu_new') }}" class="create-button">Create new</a>
 
-    <h1>Menu index</h1>
-
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Id</th>
-                <th>Quantite_viande</th>
-                <th>Quantite_legumes</th>
-                <th>Type_menu</th>
-                <th>actions</th>
-            </tr>
-        </thead>
-        <tbody>
-        {% for menu in menus %}
-            <tr>
-                <td>{{ menu.id }}</td>
-                <td>{{ menu.quantiteViande }}</td>
-                <td>{{ menu.quantiteLegumes }}</td>
-                <td>{{ menu.typeMenu }}</td>
-                <td>
-                    <a href="{{ path('app_menu_show', {'id': menu.id}) }}">show</a>
-                    <a href="{{ path('app_menu_edit', {'id': menu.id}) }}">edit</a>
-                </td>
-            </tr>
-        {% else %}
-            <tr>
-                <td colspan="5">no records found</td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
-
-    <a href="{{ path('app_menu_new') }}">Create new</a>
+ 
 
 {% endblock %}

@@ -18,13 +18,30 @@ class AdoptionType extends AbstractType
             ->add('date_adoption')
             ->add('prix_adoption')
             ->add('statut')
+            // ->add('adoptant', EntityType::class, [
+            //     'class' => Adptant::class,
+            //     'choice_label' => 'id',
+            // ])
             ->add('adoptant', EntityType::class, [
-                'class' => Adptant::class,
-                'choice_label' => 'id',
-            ])
+             'class' => Adptant::class,
+             'choice_label' => function(Adptant $adoptant) {
+                 return $adoptant->getNomAdoptant() . ' ' . $adoptant->getPrenomAdoptant();
+                 },
+                'label' => 'Adoptant',
+                'placeholder' => 'Choisir un adoptant',
+                ])
+
+            // ->add('animal', EntityType::class, [
+            //     'class' => Animal::class,
+            //     'choice_label' => 'id',
+            // ])
+
+
             ->add('animal', EntityType::class, [
-                'class' => Animal::class,
-                'choice_label' => 'id',
+            'class' => Animal::class,
+            'choice_label' => 'nomAnimal',
+            'label' => 'Animal',
+            'placeholder' => 'Choisir un animal',
             ])
         ;
     }
